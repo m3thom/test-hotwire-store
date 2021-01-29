@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Products</h1>
+
+<%= turbo_frame_tag 'products_frame' do %>
+  <%= render 'table', products: @products, q: @q %>
+<% end %>
+
+<br>
+
+<%= turbo_frame_tag 'new_product_frame', src: new_product_path %>
+
+<%= button_tag 'Test',
+               type: :button,
+               data: {
+                   controller: 'long_name',
+                   action: 'click->long_name#showDialog'
+               } %>
+
+<%= text_field_tag 'Test' %>
+
+<%= link_to 'New Product', new_product_path %>

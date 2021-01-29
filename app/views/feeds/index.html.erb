@@ -1,0 +1,22 @@
+<h1>feed page</h1>
+<%= turbo_frame_tag "user_rooms" do %>
+  <% current_user.user_rooms.each do |user_room| %>
+    <%= turbo_stream_from user_room.room %>
+    <%= turbo_frame_tag dom_id(user_room.room) do %>
+      <%= render user_room.room %>
+      <%= link_to "Edit room name", edit_room_path(user_room.room) %>
+    <% end %>
+
+    <div id="messages">
+      <%= render user_room.room.messages %>
+    </div>
+
+    <%= turbo_frame_tag "new_message", target: '_top' do %>
+      <%= form_for user_room do |f| %>
+        <%= text_field_tag 'message_content' %>
+        <%= f.submit 'Submit' %>
+      <% end %>
+    <% end %>
+
+  <% end %>
+<% end %>
